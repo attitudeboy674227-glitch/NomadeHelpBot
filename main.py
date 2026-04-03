@@ -7,11 +7,10 @@
 # License: Open-source (keep credits, no resale)
 # ============================================================
 
-
-
 import os
 import logging
 import threading
+import asyncio   # ✅ ADDED (fix)
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from pyrogram import Client
@@ -22,6 +21,11 @@ from handlers import register_all_handlers
 from security import verify_integrity, get_runtime_key
 
 logging.basicConfig(level=logging.INFO)
+
+# ================== FIX EVENT LOOP ==================
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
+# ===================================================
 
 # ================== SAFE SECURITY HANDLING ==================
 try:
